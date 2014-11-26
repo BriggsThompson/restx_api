@@ -1,6 +1,6 @@
 package api.rest;
 
-import api.domain.Message;
+import api.model.Message;
 import api.Roles;
 import org.joda.time.DateTime;
 import restx.annotations.GET;

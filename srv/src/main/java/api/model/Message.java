@@ -1,4 +1,4 @@
-package api.domain;
+package api.model;
 
 public class Message {
     private String message;
