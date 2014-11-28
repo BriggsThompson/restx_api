@@ -1,333 +1,103 @@
 package api.model;
 
-public class User {
-    /**
-     * Email
-     */
+import api.data.core.ICollection;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.common.collect.ImmutableSet;
+import org.jongo.marshall.jackson.oid.Id;
+import org.jongo.marshall.jackson.oid.ObjectId;
+import restx.security.RestxPrincipal;
+
+import java.util.Collection;
+import java.util.Date;
+
+public class User implements RestxPrincipal, ICollection {
+    @Id
+    @ObjectId
+    private String key;
+
     private String email;
-
-    /**
-     * First Name
-     */
     private String firstName;
-
-    /**
-     * Last Name
-     */
     private String lastName;
+    private Date created;
+    private Date lastUpdated;
+    private Collection<String> roles;
 
-    /**
-     * Country
-     */
-    private String country;
-
-    /**
-     * Language
-     */
-    private String language;
-
-    /**
-     * Full Name
-     */
-    private String name;
-
-    /**
-     * Display Name
-     */
-    private String displayName;
-
-    /**
-     * Date of Birth
-     */
-    private String dob;
-
-    /**
-     * Gender
-     */
-    private String gender;
-
-    /**
-     * Location
-     */
-    private String location;
-
-    /**
-     * profile image URL
-     */
-    private String profileImageURL;
-
-    /**
-     * provider id with this profile associates
-     */
-    private String providerId;
-
-    /**
-     * Unique id
-     */
-    private String uniqueId;
-
-    /**
-     * Retrieves the first name
-     *
-     * @return String the first name
-     */
-    public String getFirstName() {
-        return firstName;
+    public String getKey() {
+        return key;
     }
 
-    /**
-     * Updates the first name
-     *
-     * @param firstName
-     *            the first name of user
-     */
-    public void setFirstName(final String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * Retrieves the last name
-     *
-     * @return String the last name
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * Updates the last name
-     *
-     * @param lastName
-     *            the last name of user
-     */
-    public void setLastName(final String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * Returns the email address.
-     *
-     * @return email address of the user
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * Updates the email
-     *
-     * @param email
-     *            the email of user
-     */
-    public void setEmail(final String email) {
+    public String getFirstName() { return firstName; }
+
+    public String getLastName() { return lastName; }
+
+    @Override
+    public Date getCreated() { return created; }
+
+    @Override
+    public Date getLastUpdated() { return lastUpdated; }
+
+    public Collection<String> getRoles() {
+        return roles;
+    }
+
+    public User setKey(final String key) {
+        this.key = key;
+        return this;
+    }
+
+    public User setEmail(final String email) {
         this.email = email;
+        return this;
     }
 
-    /**
-     * Retrieves the display name
-     *
-     * @return String the display name
-     */
-    public String getDisplayName() {
-        return displayName;
+    public User setFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
     }
 
-    /**
-     * Updates the display name
-     *
-     * @param displayName
-     *            the display name of user
-     */
-    public void setDisplayName(final String displayName) {
-        this.displayName = displayName;
+    public User setLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
     }
 
-    /**
-     * Retrieves the country
-     *
-     * @return String the country
-     */
-    public String getCountry() {
-        return country;
+    public User setCreated(Date created) {
+        this.created = created;
+        return this;
+    }
+    public User setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+        return this;
     }
 
-    /**
-     * Updates the country
-     *
-     * @param country
-     *            the country of user
-     */
-    public void setCountry(final String country) {
-        this.country = country;
+    public User setRoles(final Collection<String> roles) {
+        this.roles = roles;
+        return this;
     }
 
-    /**
-     * Retrieves the language
-     *
-     * @return String the language
-     */
-    public String getLanguage() {
-        return language;
+    @Override
+    @JsonIgnore
+    public ImmutableSet<String> getPrincipalRoles() {
+        return ImmutableSet.copyOf(roles);
     }
 
-    /**
-     * Updates the language
-     *
-     * @param language
-     *            the language of user
-     */
-    public void setLanguage(final String language) {
-        this.language = language;
-    }
-
-    /**
-     * Retrieves the full name
-     *
-     * @return String the full name
-     */
+    @Override
+    @JsonIgnore
     public String getName() {
-        return name;
+        return getEmail();
     }
 
-    /**
-     * Updates the name
-     *
-     * @param name
-     *            the full name of user
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * Retrieves the date of birth
-     *
-     * @return the date of birth different providers may use different formats
-     */
-    public String getDob() {
-        return dob;
-    }
-
-    /**
-     * Updates the date of birth
-     *
-     * @param dob
-     *            the date of birth of user
-     */
-    public void setDob(final String dob) {
-        this.dob = dob;
-    }
-
-    /**
-     * Retrieves the gender
-     *
-     * @return String the gender - could be "Male", "M" or "male"
-     */
-    public String getGender() {
-        return gender;
-    }
-
-    /**
-     * Updates the gender
-     *
-     * @param gender
-     *            the gender of user
-     */
-    public void setGender(final String gender) {
-        this.gender = gender;
-    }
-
-    /**
-     * Retrieves the location
-     *
-     * @return String the location
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    /**
-     * Updates the location
-     *
-     * @param location
-     *            the location of user
-     */
-    public void setLocation(final String location) {
-        this.location = location;
-    }
-
-    /**
-     * Retrieves the profile image URL
-     *
-     * @return String the profileImageURL
-     */
-    public String getProfileImageURL() {
-        return profileImageURL;
-    }
-
-    /**
-     * Updates the profile image URL
-     *
-     * @param profileImageURL
-     *            profile image URL of user
-     */
-    public void setProfileImageURL(final String profileImageURL) {
-        this.profileImageURL = profileImageURL;
-    }
-
-    /**
-     * Retrieves the provider id with this profile associates
-     *
-     * @return the provider id
-     */
-    public String getProviderId() {
-        return providerId;
-    }
-
-    /**
-     * Updates the provider id
-     *
-     * @param providerId
-     *            the provider id
-     */
-    public void setProviderId(final String providerId) {
-        this.providerId = providerId;
-    }
-
-    /**
-     * Retrieves the profile info as a string
-     *
-     * @return String
-     */
     @Override
     public String toString() {
-        StringBuilder result = new StringBuilder();
-        String NEW_LINE = System.getProperty("line.separator");
-        result.append(this.getClass().getName() + " Object {" + NEW_LINE);
-        result.append(" email: " + email + NEW_LINE);
-        result.append(" firstName: " + firstName + NEW_LINE);
-        result.append(" lastName: " + lastName + NEW_LINE);
-        result.append(" country: " + country + NEW_LINE);
-        result.append(" language: " + language + NEW_LINE);
-        result.append(" name: " + name + NEW_LINE);
-        result.append(" displayName: " + displayName + NEW_LINE);
-        result.append(" dob: " + dob + NEW_LINE);
-        result.append(" gender: " + gender + NEW_LINE);
-        result.append(" location: " + location + NEW_LINE);
-        result.append(" uniqueId: " + uniqueId + NEW_LINE);
-        result.append(" profileImageURL: " + profileImageURL + NEW_LINE);
-        result.append(" providerId: " + providerId + NEW_LINE);
-        result.append("}");
-
-        return result.toString();
-
-    }
-
-    public String getUniqueId() {
-        return uniqueId;
-    }
-
-    public void setUniqueId(final String uniqueId) {
-        this.uniqueId = uniqueId;
+        return "User{" +
+                "key='" + key + '\'' +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

@@ -1,0 +1,73 @@
+title: Signup 20141128 160207
+given:
+  - time: 2014-11-28T16:02:07.830-06:00
+wts:
+  - when: |
+       POST users
+       Cookie: RestxSession-api={"_expires":"2014-12-28T16:02:07.830-06:00","principal":"admin","sessionKey":"69efafd8-6341-44f2-85c8-afd8d05a9745"}; RestxSessionSignature-api=lhd6s9yqpcJ/vwBFZldL8/tshEo=
+
+        {"firstName":"Briggs","lastName": "Thompson","email": "w.briggs.thompson@gmail.com","passwordHash": "someString"}
+    then: |
+       404
+
+        no restx route found for POST /users
+        go to http://localhost:8080/api/@/ui/api-docs/ for API documentation
+        
+        routes:
+        -----------------------------------
+        GET /message => default#HelloResource#sayHello
+        GET /hello => default#HelloResource#helloPublic
+        POST /users/signup => default#UserResource#signup
+        GET /@/sources/resources/{path:.*} => FS:/Users/briggs/projects/api/srv/src/main/resources
+        PUT /@/sources/resources/{path:.*} => FS:/Users/briggs/projects/api/srv/src/main/resources
+        DELETE /@/sources/resources/{path:.*} => FS:/Users/briggs/projects/api/srv/src/main/resources
+        GET /@/sources/main/{path:.*} => FS:/Users/briggs/projects/api/srv/src/main/java
+        PUT /@/sources/main/{path:.*} => FS:/Users/briggs/projects/api/srv/src/main/java
+        DELETE /@/sources/main/{path:.*} => FS:/Users/briggs/projects/api/srv/src/main/java
+        GET /@/pages => restx-admin#AdminPagesResource#findPages
+        GET /@/api-docs/schemas/{fqcn} => restx-admin#JsonSchemaResource#getJsonSchema
+        GET /@/specs => restx-admin#SpecsResource#findSpecsForOperation
+        GET /@/specs/{id} => restx-admin#SpecsResource#getSpecById
+        PUT /@/specs/{id}/wts/{wtsIndex}/then => restx-admin#SpecsResource#updateSpecThenHttp
+        GET /@/config/elements => restx-admin#ConfigResource#findConfigElements
+        GET /i18n/labels.json => labels.json
+        GET /i18n/labels.js => labels.js
+        GET /@/i18n/keys => restx-admin#MessagesAdminResource#keys
+        GET /@/i18n/locales => restx-admin#MessagesAdminResource#locales
+        GET /@/i18n/messages/{locale} => restx-admin#MessagesAdminResource#messages
+        POST /@/i18n/messages/{locale} => restx-admin#MessagesAdminResource#setMessage
+        GET /@/logs => restx-admin#LogAdminResource#getLogs
+        GET /@/loggers => restx-admin#LogAdminResource#getLoggers
+        PUT /@/loggers/{name} => restx-admin#LogAdminResource#updateLogger
+        GET /@/metrics => restx-admin#MetricsResource#metrics
+        GET /@/health-checks => restx-admin#MetricsResource#healthChecks
+        GET /@/thread-dump => restx-admin#MetricsResource#threadDump
+        GET /@/ui/monitor/* => MonitorUIRoute
+        GET /@/monitor => MonitorRoute
+        GET /@/sessionStats => restx-admin#SessionsResource#metrics
+        GET /@/ui/recorder/* => RecorderUIRoute
+        GET /@/recorders => RecorderRoute
+        GET /@/recorders/{id} => RecorderRecord
+        POST /@/recorders/storage/{id} => RecorderRecordStorage
+        GET /@/restx-stats => restx-admin#RestxStatsResource#getRestxStats
+        POST /sessions => default#SessionResource#authenticate
+        GET /sessions/current => default#SessionResource#currentSession
+        DELETE /sessions/{sessionKey} => default#SessionResource#logout
+        GET /@/api-docs/notes/* => ApiDocsNotesRoute
+        GET /@/ui/log/* => LogUIRoute
+        GET /@/ui/stats/* => StatsUIRoute
+        GET /@/ui/sources/* => SourcesUIRoute
+        GET /@/api-docs/{router} => ApiDeclarationRoute
+        GET /@/api-docs => ApiDocsIndexRoute
+        GET /@/ui/api-docs/* => ApiDocsUIRoute
+        GET /@/ui/config/* => ConfigUIRoute
+        GET /@/errors/descriptors => ErrorDescriptorsRoute
+        GET /@/ui/errors/* => ErrorsUIRoute
+        GET /@/factory => FactoryRoute
+        GET /@/ui/factory/* => FactoryUIRoute
+        GET /@/warehouse => WarehouseRoute
+        GET /@/ui/messages/* => MessagesUIRoute
+        CORSRoute
+        GET /@/ui/tests/* => SpecTestsUIRoute
+        GET /@/ui/* => AdminUIRoute
+        -----------------------------------

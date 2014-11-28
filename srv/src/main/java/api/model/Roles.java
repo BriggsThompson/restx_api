@@ -1,4 +1,4 @@
-package api;
+package api.model;
 
 /**
  * A list of roles for the application.
@@ -7,4 +7,7 @@ package api;
  */
 public final class Roles {
     public static final String HELLO_ROLE = "hello";
+    public static final String ADMIN = "admin";
+    public static final String USER = "user";
+    public static final String BUYER_SELLER = "buyer_seller";
 }

@@ -37,6 +37,11 @@
         </dependency>
         <dependency>
             <groupId>io.restx</groupId>
+            <artifactId>restx-jongo</artifactId>
+            <version>${restx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.restx</groupId>
             <artifactId>restx-core-annotation-processor</artifactId>
             <version>${restx.version}</version>
         </dependency>
@@ -107,17 +112,38 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>io.restx</groupId>
+            <artifactId>restx-jongo-specs-tests</artifactId>
+            <version>${restx.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.brickred</groupId>
-            <artifactId>socialauth</artifactId>
-            <version>4.6</version>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-facebook</artifactId>
+            <version>2.0.0.M1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+            <version>1.1.0.RELEASE</version>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>http://repo.spring.io/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <build>
         <plugins>
             <plugin>

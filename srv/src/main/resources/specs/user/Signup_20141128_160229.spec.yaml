@@ -1,0 +1,13 @@
+title: Signup 20141128 160229
+given:
+  - time: 2014-11-28T16:02:29.889-06:00
+wts:
+  - when: |
+       POST users/signup
+       Cookie: RestxSession-api={"_expires":"2014-12-28T16:02:29.889-06:00","principal":"admin","sessionKey":"69efafd8-6341-44f2-85c8-afd8d05a9745"}; RestxSessionSignature-api=988Qnuxvwub8yfYqoztRevbOVIs=
+
+        {"firstName":"Briggs","lastName": "Thompson","email": "w.briggs.thompson@gmail.com","passwordHash": "someString"}
+    then: |
+       422
+
+        { email w.briggs.thompson@gmail.com already exists.}

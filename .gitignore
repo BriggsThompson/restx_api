@@ -4,4 +4,3 @@ target
 srv/target
 srv/logs
 logs
-srv/config
