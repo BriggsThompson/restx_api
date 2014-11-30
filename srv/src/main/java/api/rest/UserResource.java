@@ -29,48 +29,29 @@ public class UserResource {
         this.userCredentialsRepository = userCredentialsRepository;
     }
 
-//
-//    @RolesAllowed(Roles.ADMIN)
-//    @GET("/users")
-//    public Iterable<User> findUsers() {
-//        return userRepository.findAllUsers();
-//    }
-//
     @PermitAll
-    @GET("/users/authenticated")
-    public Optional<User> authenticated() {
-        Optional<User> principal = (Optional<User>) RestxSession.current().getPrincipal();
-        if (!principal.isPresent()) {
-            throw new WebException(HttpStatus.UNAUTHORIZED);
+    @GET("/users/login")
+    public Optional<User> login(String email, String passwordHash) {
+        Optional<User> user = userCredentialsRepository.checkCredentials(email, passwordHash);
+        if(user.isPresent()) {
+            RestxSession.current().clearPrincipal();
+            RestxSession.current().authenticateAs(user.get());
+            return user;
         }
 
-        return principal;
+        throw new WebException(HttpStatus.UNAUTHORIZED, "{ login attempt failed.}");
     }
 
-    @RolesAllowed(Roles.BUYER_SELLER)
-    @GET("/users/blocked")
-    public Optional<User> getMyself() {
-        Optional<User> principal = (Optional<User>) RestxSession.current().getPrincipal();
-        if (!principal.isPresent()) {
-            throw new WebException(HttpStatus.UNAUTHORIZED);
-        }
-        return principal;
-    }
-
-    /**
-     * Signup for an account.
-     *
-     * Example post: {"firstName":"Briggs","lastName": "Thompson","email": "w.briggs.thompson@gmail.com","passwordHash": "someString"}
-     *
-     * @param userSignup
-     * @return UserSignup
-     */
     @PermitAll
-    @POST("/users/signup")
-    public User signupPost(UserSignup userSignup) {
+    @GET("/users/logout")
+    public String logout() {
+        if(RestxSession.current().getPrincipal().isPresent()) {
+            RestxSession.current().clearPrincipal();
+        }
 
-        return signup(userSignup);
+        return "{ success : true }";
     }
+
 
     /**
      * Signup for an account.
@@ -86,6 +67,20 @@ public class UserResource {
         return signup(new UserSignup().setEmail(email).setFirstName(firstName).setlastName(lastName).setPasswordHash(passwordHash));
     }
 
+    /**
+     * Signup for an account.
+     *
+     * Example post: {"firstName":"Briggs","lastName": "Thompson","email": "w.briggs.thompson@gmail.com","passwordHash": "someString"}
+     *
+     * @param userSignup
+     * @return UserSignup
+     */
+    @PermitAll
+    @POST("/users/signup")
+    public User signupPost(UserSignup userSignup) {
+        return signup(userSignup);
+    }
+
     private User signup(UserSignup userSignup) {
         User user = null;
 
@@ -97,9 +92,48 @@ public class UserResource {
 
         this.userCredentialsRepository.setCredentials(user.getKey(), userSignup.getPasswordHash());
 
-        if (!RestxSession.current().getPrincipal().isPresent()) {
-            RestxSession.current().authenticateAs(user);
+        if (RestxSession.current().getPrincipal().isPresent()) {
+            RestxSession.current().clearPrincipal();
         }
+
+        RestxSession.current().authenticateAs(user);
+
         return user;
+    }
+
+    /***********************************
+    *
+    * Tests for authentication.
+    *
+    ************************************/
+    @PermitAll
+    @GET("/users/authenticated")
+    public Optional<User> authenticated() {
+
+        if (!RestxSession.current().getPrincipal().isPresent()) {
+            throw new WebException(HttpStatus.UNAUTHORIZED);
+        }
+
+        return (Optional<User>) RestxSession.current().getPrincipal();
+    }
+
+    @RolesAllowed(Roles.BUYER_SELLER)
+    @GET("/users/buyerseller")
+    public Optional<User> buyerSeller() {
+
+        if (!RestxSession.current().getPrincipal().isPresent()) {
+            throw new WebException(HttpStatus.UNAUTHORIZED);
+        }
+        return (Optional<User>) RestxSession.current().getPrincipal();
+    }
+
+    @RolesAllowed(Roles.ADMIN)
+    @GET("/users/admin")
+    public Optional<User> admin() {
+
+        if (!RestxSession.current().getPrincipal().isPresent()) {
+            throw new WebException(HttpStatus.UNAUTHORIZED);
+        }
+        return (Optional<User>) RestxSession.current().getPrincipal();
     }
 }
