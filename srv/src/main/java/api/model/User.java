@@ -16,10 +16,12 @@ public class User implements RestxPrincipal, ICollection {
     private String key;
 
     private String email;
+    private String facebookId;
     private String firstName;
     private String lastName;
     private Date created;
     private Date lastUpdated;
+
     private Collection<String> roles;
 
     public String getKey() {
@@ -29,6 +31,8 @@ public class User implements RestxPrincipal, ICollection {
     public String getEmail() {
         return email;
     }
+
+    public String getFacebookId() { return facebookId; }
 
     public String getFirstName() { return firstName; }
 
@@ -51,6 +55,11 @@ public class User implements RestxPrincipal, ICollection {
 
     public User setEmail(final String email) {
         this.email = email;
+        return this;
+    }
+
+    public User setFacebookId(String facebookId) {
+        this.facebookId = facebookId;
         return this;
     }
 
@@ -95,6 +104,7 @@ public class User implements RestxPrincipal, ICollection {
         return "User{" +
                 "key='" + key + '\'' +
                 ", email='" + email + '\'' +
+                ", facebookId='" + facebookId + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", roles=" + roles +

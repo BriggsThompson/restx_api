@@ -1,4 +1,4 @@
-package api.model;
+package api.constants;
 
 /**
  * A list of roles for the application.

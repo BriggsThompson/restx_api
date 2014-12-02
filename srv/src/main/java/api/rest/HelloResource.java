@@ -1,7 +1,7 @@
 package api.rest;
 
 import api.model.Message;
-import api.model.Roles;
+import api.constants.Roles;
 import org.joda.time.DateTime;
 import restx.annotations.GET;
 import restx.annotations.RestxResource;

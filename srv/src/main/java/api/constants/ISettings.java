@@ -1,4 +1,4 @@
-package api.util;
+package api.constants;
 
 import restx.config.Settings;
 import restx.config.SettingsKey;

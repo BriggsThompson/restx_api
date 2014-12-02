@@ -55,6 +55,8 @@ public class UserCredentials implements ICollection {
     public String toString() {
         return "UserCredentials{" +
                 "key='" + key + '\'' +
+                "created='" + created + '\'' +
+                "lastUpdated='" + lastUpdated + '\'' +
                 ", passwordHash='XXXXXXXXXXXX'" +
                 '}';
     }
