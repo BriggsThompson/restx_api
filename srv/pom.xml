@@ -111,6 +111,11 @@
             <version>2.2.0</version>
         </dependency>
         <dependency>
+            <groupId>org.jongo</groupId>
+            <artifactId>jongo</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
             <groupId>io.restx</groupId>
             <artifactId>restx-specs-tests</artifactId>
             <version>${restx.version}</version>
