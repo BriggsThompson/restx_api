@@ -7,20 +7,17 @@ import org.jongo.marshall.jackson.oid.ObjectId;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by briggs on 12/8/14.
- */
 public class Product implements ICollection {
     @Id
     @ObjectId
     private String key;
 
-    private User user;
+    private String userKey;
     private String title;
     private String description;
     private Location location;
-    private Double totalCost;
     private List<HashTag> hashTagList;
+    private RentalCost rentalCost;
 
     private Date created;
     private Date lastUpdated;
@@ -28,6 +25,15 @@ public class Product implements ICollection {
     public String getKey() {
         return key;
     }
+
+    public String getTitle() {
+        return title;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public List<HashTag> getHashTagList() { return hashTagList; }
+    public RentalCost getRentalCost() { return rentalCost; }
 
     @Override
     public Date getCreated() { return created; }
@@ -41,8 +47,8 @@ public class Product implements ICollection {
         return this;
     }
 
-    public Product setUser(final User user) {
-        this.user = user;
+    public Product setUserKey(final String userKey) {
+        this.userKey = userKey;
         return this;
     }
 
@@ -61,36 +67,37 @@ public class Product implements ICollection {
         return this;
     }
 
-    public Product setTotalCost(final Double totalCost) {
-        this.totalCost = totalCost;
-        return this;
-    }
-
     public Product setHashTags(final List<HashTag> hashTagList) {
         this.hashTagList = hashTagList;
         return this;
     }
 
-
     public Product setCreated(Date created) {
         this.created = created;
         return this;
     }
+
     public Product setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
         return this;
     }
 
+    public Product setRentalCost(RentalCost rentalCost) {
+        this.rentalCost = rentalCost;
+        return this;
+    }
+
     @Override
     public String toString() {
-        return "";
-//        return "User{" +
-//                "key='" + key + '\'' +
-//                ", email='" + email + '\'' +
-//                ", facebookId='" + facebookId + '\'' +
-//                ", firstName='" + firstName + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", roles=" + roles +
-//                '}';
+        return new StringBuilder()
+                .append("Product{")
+                .append("key='").append(key).append('\'')
+                .append(", userKey='").append(userKey).append('\'')
+                .append(", title='").append(title).append('\'')
+                .append(", description='").append(description).append('\'')
+                .append(", ").append(rentalCost.toString())
+                .append(", created='").append(created).append('\'')
+                .append(", lastUpdated='").append(lastUpdated).append('\'')
+                .append("}").toString();
     }
 }
