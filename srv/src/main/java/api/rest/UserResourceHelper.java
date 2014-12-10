@@ -6,7 +6,7 @@ import restx.WebException;
 import restx.http.HttpStatus;
 import restx.security.RestxSession;
 
-public class UserResource {
+public class UserResourceHelper {
 
     public static Optional<User> authorizationCheck() {
         if (!RestxSession.current().getPrincipal().isPresent()) {

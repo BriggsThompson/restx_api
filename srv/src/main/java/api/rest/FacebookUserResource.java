@@ -35,7 +35,7 @@ public class FacebookUserResource {
             throw new WebException(HttpStatus.UNAUTHORIZED);
         }
 
-        UserResource.clearAndResetPrinciple(user.get());
+        UserResourceHelper.clearAndResetPrinciple(user.get());
 
         return user.get();
     }

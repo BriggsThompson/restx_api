@@ -5,7 +5,6 @@ import api.data.Repository.UserCredentialsRepository;
 import api.data.Repository.UserRepository;
 import api.model.Message;
 import api.model.User;
-import api.model.UserCredentials;
 import api.model.UserSignup;
 import com.google.common.base.Optional;
 import com.mongodb.MongoException;
@@ -36,7 +35,7 @@ public class EmailUserResource {
     public Optional<User> login(String email, String passwordHash) {
         Optional<User> user = userCredentialsRepository.checkCredentials(email, passwordHash);
         if(user.isPresent()) {
-            UserResource.clearAndResetPrinciple(user.get());
+            UserResourceHelper.clearAndResetPrinciple(user.get());
             return user;
         }
 
@@ -105,7 +104,7 @@ public class EmailUserResource {
         }
 
         this.userCredentialsRepository.setCredentials(user.getKey(), userSignup.getPasswordHash());
-        UserResource.clearAndResetPrinciple(user);
+        UserResourceHelper.clearAndResetPrinciple(user);
 
         return user;
     }
@@ -113,19 +112,19 @@ public class EmailUserResource {
     @PermitAll
     @GET("/users/authenticated")
     public Optional<User> authenticated() {
-        return UserResource.authorizationCheck();
+        return UserResourceHelper.authorizationCheck();
     }
 
     @RolesAllowed(Roles.BUYER_SELLER)
     @GET("/users/buyerseller")
     public Optional<User> buyerSeller() {
-        return UserResource.authorizationCheck();
+        return UserResourceHelper.authorizationCheck();
     }
 
     @RolesAllowed(Roles.ADMIN)
     @GET("/users/admin")
     public Optional<User> admin() {
-        return UserResource.authorizationCheck();
+        return UserResourceHelper.authorizationCheck();
     }
 
 }
