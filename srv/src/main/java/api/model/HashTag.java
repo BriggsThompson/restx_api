@@ -14,6 +14,7 @@ public class HashTag implements ICollection {
     @Id
     @ObjectId
     private String key;
+    private String userKey;
     private String tag;
     private Date created;
     private Date lastUpdated;
@@ -22,6 +23,8 @@ public class HashTag implements ICollection {
     public String getKey() {
         return key;
     }
+
+    public String getUserKey() { return userKey; }
 
     @Override
     public Date getCreated() {
@@ -37,7 +40,27 @@ public class HashTag implements ICollection {
         return tag;
     }
 
-    public void setTag(String tag) {
+    public HashTag setTag(String tag) {
         this.tag = tag;
+        return this;
+    }
+
+    public HashTag setKey(String key) {
+        this.key = key;
+        return this;
+    }
+
+    public HashTag setCreated(Date created) {
+        this.created = created;
+        return this;
+    }
+
+    public HashTag setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+        return this;
+    }
+
+    public void setUserKey(String userKey) {
+        this.userKey = userKey;
     }
 }

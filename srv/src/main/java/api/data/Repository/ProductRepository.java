@@ -22,7 +22,7 @@ public class ProductRepository {
         products = this.jongo.getCollection("products");
     }
 
-    public Product createProduct(Product product) {
+    public Product create(Product product) {
         Date date = new Date();
         product.setCreated(date);
         product.setLastUpdated(date);

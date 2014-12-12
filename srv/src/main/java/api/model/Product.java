@@ -4,6 +4,8 @@ import api.data.core.ICollection;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
 
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,14 +20,18 @@ public class Product implements ICollection {
     private Location location;
     private List<HashTag> hashTagList;
     private RentalCost rentalCost;
+    private InputStream photoStream;
 
     private Date created;
     private Date lastUpdated;
+    private Display display;
 
     public String getKey() {
         return key;
     }
-
+    public String getUserKey() {
+        return userKey;
+    }
     public String getTitle() {
         return title;
     }
@@ -34,6 +40,7 @@ public class Product implements ICollection {
     }
     public List<HashTag> getHashTagList() { return hashTagList; }
     public RentalCost getRentalCost() { return rentalCost; }
+    public InputStream getPhotoStream() { return photoStream; }
 
     @Override
     public Date getCreated() { return created; }
@@ -87,6 +94,30 @@ public class Product implements ICollection {
         return this;
     }
 
+    public Product setPhotoStream(InputStream photoStream) {
+        this.photoStream = photoStream;
+        return this;
+    }
+
+    public Display getDisplay() {
+
+        if (display == null) {
+            display = new Display()
+                    .setTitle(this.getTitle())
+                    .setDescription(this.getDescription())
+                    .setKey(this.getKey())
+                    .setUserKey(this.getUserKey())
+                    .setRentalCost(this.getRentalCost());
+            List<String> tags = new ArrayList<String>();
+            for ( HashTag hashTag : this.getHashTagList()) {
+                tags.add(hashTag.getTag());
+            }
+            display.setHashTagList(tags);
+        }
+
+        return display;
+    }
+
     @Override
     public String toString() {
         return new StringBuilder()
@@ -100,4 +131,57 @@ public class Product implements ICollection {
                 .append(", lastUpdated='").append(lastUpdated).append('\'')
                 .append("}").toString();
     }
+
+    public class Display {
+        private String key;
+        private String userKey;
+        private String title;
+        private String description;
+        private List<String> hashTagList;
+        private RentalCost rentalCost;
+
+        public Display setKey(String key) {
+            this.key = key;
+            return this;
+        }
+
+        public Display setUserKey(String userKey) {
+            this.userKey = userKey;
+            return this;
+        }
+
+        public Display setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Display setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Display setHashTagList(List<String> hashTagList) {
+            this.hashTagList = hashTagList;
+            return this;
+        }
+
+        public Display setRentalCost(RentalCost rentalCost) {
+            this.rentalCost = rentalCost;
+            return this;
+        }
+
+        public String getKey() { return key; }
+
+        public String getUserKey() { return userKey; }
+
+        public String getTitle() { return title; }
+
+        public String getDescription() { return description; }
+
+        public List<String> getHashTagList() { return hashTagList; }
+
+        public RentalCost getRentalCost() { return rentalCost; }
+    }
+
+
 }

@@ -1,54 +1,53 @@
 package api.model;
 
 
+import java.util.Map;
+
 public class RentalCost {
 
     public enum INTERVAL {
         DAY, WEEK, MONTH;
     }
 
-    private INTERVAL interval;
-    private Integer cost;
     private Integer totalCost;
+    private Map<INTERVAL, Integer> costInterval;
 
-    public RentalCost(INTERVAL interval, Integer cost, Integer totalCost) {
-        this.interval = interval;
-        this.cost = cost;
-        this.totalCost = totalCost;
-    }
-
-    public INTERVAL getInterval() {
-        return interval;
-    }
-
-    public void setInterval(INTERVAL interval) {
-        this.interval = interval;
-    }
-
-    public Integer getCost() {
-        return cost;
-    }
-
-    public void setCost(Integer cost) {
-        this.cost = cost;
-    }
+    public RentalCost() {}
 
     public Integer getTotalCost() {
         return totalCost;
     }
 
-    public void setTotalCost(Integer totalCost) {
+    public Map<INTERVAL, Integer> getCostInterval() {
+        return costInterval;
+    }
+
+    public RentalCost setCostInterval(Map<INTERVAL, Integer> costInterval) {
+        this.costInterval = costInterval;
+        return this;
+    }
+
+    public RentalCost setTotalCost(Integer totalCost) {
         this.totalCost = totalCost;
+        return this;
     }
 
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("RentalCost{")
-                .append("interval='").append(interval.toString()).append('\'')
-                .append(", cost='").append(cost).append('\'')
-                .append(", totalCost='").append(totalCost).append('\'')
-                .append("}").toString();
+        StringBuilder sb = new StringBuilder()
+                .append(", totalCost='").append(totalCost).append("'");
+
+
+        if (this.costInterval != null && this.costInterval.size() > 0) {
+            sb.append(", costInterval= [");
+            for (INTERVAL interval : this.costInterval.keySet()) {
+                sb.append("{ interval='").append(interval.toString()).append("'},");
+            }
+            sb.append("]");
+        }
+        sb.append("}");
+
+        return sb.toString();
     }
 
 }
