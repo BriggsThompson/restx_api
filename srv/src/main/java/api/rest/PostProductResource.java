@@ -18,10 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import restx.RestxRequest;
 import restx.WebException;
-import restx.annotations.POST;
-import restx.annotations.PUT;
-import restx.annotations.Param;
-import restx.annotations.RestxResource;
+import restx.annotations.*;
 import restx.factory.Component;
 import restx.http.HttpStatus;
 import restx.security.RolesAllowed;
@@ -141,5 +138,11 @@ public class PostProductResource {
         return Optional.of(product.get().getDisplay());
     }
 
-
+    @RolesAllowed(Roles.BUYER_SELLER)
+    @GET("/products/mine")
+    public Optional<List<Product.Display>> mine() {
+        Optional<User> user = UserResourceHelper.authorizationCheck();
+        List<Product.Display> products = productRepository.userProductsDisplay(user.get().getKey());
+        return Optional.of(products);
+    }
 }

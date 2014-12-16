@@ -1,5 +1,6 @@
 package api.model;
 
+import api.constants.Reference;
 import api.data.core.ICollection;
 import org.jongo.marshall.jackson.oid.Id;
 import org.jongo.marshall.jackson.oid.ObjectId;
@@ -14,6 +15,7 @@ public class Product implements ICollection {
     @ObjectId
     private String key;
 
+    @ObjectId
     private String userKey;
     private String title;
     private String description;
@@ -109,13 +111,18 @@ public class Product implements ICollection {
     public Display getDisplay() {
 
         if (display == null) {
+
+            List<String> imagePath = new ArrayList<>();
+            for (String image : this.getImageList()) {
+                imagePath.add(new StringBuilder(Reference.IMAGE_PATH).append(image).toString());
+            }
             display = new Display()
                     .setTitle(this.getTitle())
                     .setDescription(this.getDescription())
                     .setKey(this.getKey())
                     .setUserKey(this.getUserKey())
                     .setHashTagList(this.getHashTagList())
-                    .setImageList(this.getImageList())
+                    .setImageList(imagePath)
                     .setRentalCost(this.getRentalCost());
         }
 

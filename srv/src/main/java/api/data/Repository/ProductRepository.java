@@ -2,6 +2,7 @@ package api.data.Repository;
 
 import api.model.Product;
 import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
 import com.mongodb.DB;
 import org.bson.types.ObjectId;
 import org.jongo.Jongo;
@@ -9,7 +10,9 @@ import org.jongo.MongoCollection;
 import restx.factory.Component;
 
 import javax.inject.Named;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Component
 public class ProductRepository {
@@ -48,5 +51,19 @@ public class ProductRepository {
         products.save(product);
 
         return product;
+    }
+
+    public List<Product> userProducts(String userKey) {
+        Iterable<Product> productList = products.find("{userKey:#", new ObjectId(userKey)).as(Product.class);
+        return Lists.newArrayList(productList);
+    }
+
+    public List<Product.Display> userProductsDisplay(String userKey) {
+        Iterable<Product> productList = products.find("{ userKey : # }", new ObjectId(userKey)).as(Product.class);
+        List<Product.Display> productDisplay = new ArrayList<>();
+        for (Product product : productList) {
+            productDisplay.add(product.getDisplay());
+        }
+        return productDisplay;
     }
 }

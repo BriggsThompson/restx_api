@@ -14,6 +14,7 @@ public class HashTag implements ICollection {
     @Id
     @ObjectId
     private String key;
+    @ObjectId
     private String userKey;
     private String tag;
     private Date created;

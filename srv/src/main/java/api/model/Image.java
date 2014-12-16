@@ -11,7 +11,9 @@ public class Image implements ICollection {
     @ObjectId
     @Id
     private String key;
+    @ObjectId
     private String userKey;
+    @ObjectId
     private String productKey;
     private String originalFileName;
     private String contentType;
