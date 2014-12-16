@@ -98,7 +98,6 @@ public class EmailUserResource {
                 user = this.userRepository.createUser(userSignup);
             }
 
-
         } catch (MongoException.DuplicateKey e) {
             throw new WebException(HttpStatus.UNPROCESSABLE_ENTITY, String.format("{ email %s already exists.}", userSignup.getEmail()));
         }

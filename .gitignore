@@ -4,3 +4,4 @@ target
 srv/target
 srv/logs
 logs
+*.properties

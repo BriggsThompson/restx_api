@@ -1,7 +1,9 @@
 package api.data.Repository;
 
 import api.model.Product;
+import com.google.common.base.Optional;
 import com.mongodb.DB;
+import org.bson.types.ObjectId;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import restx.factory.Component;
@@ -28,6 +30,22 @@ public class ProductRepository {
         product.setLastUpdated(date);
 
         products.insert(product);
+
+        return product;
+    }
+
+    public Optional<Product> exists(String key) {
+        Product product = products.findOne(new ObjectId(key)).as(Product.class);
+        if (product != null)
+            return Optional.fromNullable(product);
+        return Optional.absent();
+    }
+
+    public Product save(Product product) {
+        Date date = new Date();
+        product.setLastUpdated(date);
+
+        products.save(product);
 
         return product;
     }

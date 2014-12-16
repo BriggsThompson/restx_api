@@ -18,7 +18,8 @@ public class Product implements ICollection {
     private String title;
     private String description;
     private Location location;
-    private List<HashTag> hashTagList;
+    private List<String> hashTagList;
+    private List<String> imageList;
     private RentalCost rentalCost;
     private InputStream photoStream;
 
@@ -38,7 +39,8 @@ public class Product implements ICollection {
     public String getDescription() {
         return description;
     }
-    public List<HashTag> getHashTagList() { return hashTagList; }
+    public List<String> getHashTagList() { return hashTagList == null ? hashTagList = new ArrayList<String>() : hashTagList; }
+    public List<String> getImageList() { return imageList == null ? imageList = new ArrayList<String>() : imageList; }
     public RentalCost getRentalCost() { return rentalCost; }
     public InputStream getPhotoStream() { return photoStream; }
 
@@ -74,8 +76,13 @@ public class Product implements ICollection {
         return this;
     }
 
-    public Product setHashTags(final List<HashTag> hashTagList) {
+    public Product setHashTags(final List<String> hashTagList) {
         this.hashTagList = hashTagList;
+        return this;
+    }
+
+    public Product setImageList(final List<String> imageList) {
+        this.imageList = imageList;
         return this;
     }
 
@@ -107,12 +114,9 @@ public class Product implements ICollection {
                     .setDescription(this.getDescription())
                     .setKey(this.getKey())
                     .setUserKey(this.getUserKey())
+                    .setHashTagList(this.getHashTagList())
+                    .setImageList(this.getImageList())
                     .setRentalCost(this.getRentalCost());
-            List<String> tags = new ArrayList<String>();
-            for ( HashTag hashTag : this.getHashTagList()) {
-                tags.add(hashTag.getTag());
-            }
-            display.setHashTagList(tags);
         }
 
         return display;
@@ -138,6 +142,7 @@ public class Product implements ICollection {
         private String title;
         private String description;
         private List<String> hashTagList;
+        private List<String> imageList;
         private RentalCost rentalCost;
 
         public Display setKey(String key) {
@@ -165,6 +170,11 @@ public class Product implements ICollection {
             return this;
         }
 
+        public Display setImageList(List<String> imageList) {
+            this.imageList = imageList;
+            return this;
+        }
+
         public Display setRentalCost(RentalCost rentalCost) {
             this.rentalCost = rentalCost;
             return this;
@@ -179,6 +189,8 @@ public class Product implements ICollection {
         public String getDescription() { return description; }
 
         public List<String> getHashTagList() { return hashTagList; }
+
+        public List<String> getImageList() { return imageList; }
 
         public RentalCost getRentalCost() { return rentalCost; }
     }

@@ -60,7 +60,8 @@ public class HashTag implements ICollection {
         return this;
     }
 
-    public void setUserKey(String userKey) {
+    public HashTag setUserKey(String userKey) {
         this.userKey = userKey;
+        return this;
     }
 }
