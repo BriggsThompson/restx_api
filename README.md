@@ -41,3 +41,18 @@ API endpoints are documented http://local.hazitt.com:8080/api/@/ui/api-docs/
 
 If testing non-admin authentication, remove cookies from admin.
 
+
+Maven settings in ~/.m2/settings.xml
+```
+ <settings>
+   <mirrors>
+     <mirror>
+       <id>US</id>
+       <name>US Central</name>
+       <url>http://repo.maven.apache.org/maven2</url>
+       <mirrorOf>central</mirrorOf>
+     </mirror>
+   </mirrors>
+ </settings>
+```
+
