@@ -28,17 +28,17 @@ import java.util.List;
 
 @RestxResource
 @Component
-public class PostProductResource {
+public class ProductResource {
 
     private final ProductRepository productRepository;
     private final HashTagRepository hashTagRepository;
     private final ImageUploader imageUploader;
 
-    private final static Logger logger = LoggerFactory.getLogger(PostProductResource.class);
+    private final static Logger logger = LoggerFactory.getLogger(ProductResource.class);
 
-    public PostProductResource(ProductRepository productRepository,
-                               HashTagRepository hashTagRepository,
-                               ImageUploader imageUploader) {
+    public ProductResource(ProductRepository productRepository,
+                           HashTagRepository hashTagRepository,
+                           ImageUploader imageUploader) {
         this.productRepository = productRepository;
         this.hashTagRepository = hashTagRepository;
         this.imageUploader = imageUploader;
@@ -143,6 +143,14 @@ public class PostProductResource {
     public Optional<List<Product.Display>> mine() {
         Optional<User> user = UserResourceHelper.authorizationCheck();
         List<Product.Display> products = productRepository.userProductsDisplay(user.get().getKey());
+        return Optional.of(products);
+    }
+
+    @RolesAllowed(Roles.BUYER_SELLER)
+    @GET("/products/all")
+    public Optional<List<Product.Display>> all() {
+        Optional<User> user = UserResourceHelper.authorizationCheck();
+        List<Product.Display> products = productRepository.all();
         return Optional.of(products);
     }
 }

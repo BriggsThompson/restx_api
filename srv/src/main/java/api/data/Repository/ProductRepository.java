@@ -66,4 +66,13 @@ public class ProductRepository {
         }
         return productDisplay;
     }
+
+    public List<Product.Display> all() {
+        Iterable<Product> productList = products.find().limit(25).as(Product.class);
+        List<Product.Display> productDisplay = new ArrayList<>();
+        for (Product product : productList) {
+            productDisplay.add(product.getDisplay());
+        }
+        return productDisplay;
+    }
 }
